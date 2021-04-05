@@ -1,0 +1,138 @@
+﻿<section class="container-fluid mt-10">
+    <h4>Consulta de Livros</h4>
+    <hr />
+
+    <table class="table table-bordered" ng-init="consultarLivros()">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Editora</th>
+                <th>Edição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="l in livros">
+                <td>{{l.CodLivro}}</td>
+                <td>{{l.Titulo}}</td>
+                <td>{{l.NomeAutor}}</td>
+                <td>{{l.Editora}}</td>
+                <td>{{l.Edicao}}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" data-target="#editpage" data-toggle="modal" ng-click="getOneItem(l.CodLivro)">
+                        <i class="fa fa-pencil-square-o"></i> Atualizar
+                    </button>
+                    <button class="btn btn-danger btn-sm" data-target="#deletepage" data-toggle="modal" ng-click="getOneItem(l.CodLivro)">
+                        <i class="fa fa-trash"></i> Excluir
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">Quantidade de Registros: {{livros.length}}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!--MODAL EDIÇÃO-->
+    <div id="editpage" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary justify-content-center">
+                    <h5>Atualizar Cadastro de Livro</h5>
+                </div>
+                <div class="modal-body">
+                    <form name="form" novalidate>
+                        <input type="text" ng-model="livro.CodLivro" hidden />
+                        <input type="text" ng-model="livro.CodAutor" hidden />
+                        <input type="text" ng-model="livro.CodAssunto" hidden />
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label>Título do Livro</label>
+                                <input type="text" class="form-control" name="Titulo" ng-model="livro.Titulo" maxlength="40" required placeholder="Digite o título do livro" />
+                                <span style="color:red" ng-show="form.Titulo.$dirty && form.Titulo.$touched && form.Titulo.$invalid">
+                                    <span ng-show="form.Titulo.$error.required">O título do livro é obrigatório.</span>
+                                    <span ng-show="form.Titulo.$error.maxlength">Este campo só pode ter 40 caractéres no máximo</span>
+                                </span>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Nome do Autor</label>
+                                <input type="text" class="form-control" maxlength="40" name="NomeAutor" ng-model="livro.NomeAutor" required placeholder="Digite o nome do autor do livro" />
+                                <span style="color:red" ng-show="form.NomeAutor.$dirty && form.NomeAutor.$invalid">
+                                    <span ng-show="form.NomeAutor.$error.required">O nome do autor é obrigatório.</span>
+                                </span>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Editora</label>
+                                <input type="text" class="form-control" maxlength="20" name="Editora" ng-model="livro.Editora" required placeholder="Digite a editora do livro" />
+                                <span style="color:red" ng-show="form.Editora.$dirty && form.Editora.$invalid">
+                                    <span ng-show="form.Editora.$error.required">O nome da editora é obrigatório.</span>
+                                    <span ng-show="form.Editora.$error.maxlength">Este campo só pode ter 20 caractéres no máximo</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label>Edição</label>
+                                <input type="number" class="form-control" ng-model="livro.Edicao" required placeholder="Digite a edição do livro" />
+                                <span style="color:red" ng-show="form.Edicao.$dirty && form.Editora.$invalid">
+                                    <span ng-show="form.Edicao.$error.required">O edição é obrigatório.</span>
+                                </span>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Ano da Publicação</label>
+                                <input type="text" class="form-control" name="AnoPublicacao" required maxlength="4" ng-model="livro.AnoPublicacao" placeholder="Digite o ano da publicação do livro" />
+                                <span style="color:red" ng-show="form.AnoPublicacao.$dirty && form.AnoPublicacao.$invalid">
+                                    <span ng-show="form.AnoPublicacao.$error.required">O edição é obrigatório.</span>
+                                    <span ng-show="form.AnoPublicacao.$error.maxlength">Este campo é no Formato do ano AAAA</span>
+                                </span>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label>Descrição</label>
+                                <input type="text" class="form-control" maxlength="20" ng-model="livro.Descricao" required placeholder="Digite a descrição livro" />
+                                <span style="color:red" ng-show="form.AnoPublicacao.$dirty && form.AnoPublicacao.$invalid">
+                                    <span ng-show="form.AnoPublicacao.$error.required">A descrição é obrigatória.</span>
+                                    <span ng-show="form.AnoPublicacao.$error.maxlength">Este campo só permite 20 caracteres</span>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                    <button ng-disabled="form.$invalid" data-dismiss="modal" class="btn btn-outline-success" ng-click="atualizar()">
+                        <i class="fa fa-edit"></i> Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM MODAL EDIÇÃO -->
+
+    <!-- MODAL DELETE ITEM -->
+    <div id="deletepage" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger justify-content-center">
+                    <h4>Deseja Realizar a Exclusão?</h4>
+                </div>
+                <div class="modal-body">
+                    O Livro: <strong>{{livro.Titulo}}</strong> de <b>{{livro.NomeAutor}}</b><br />
+                    Da editora: <strong>{{livro.Editora}}</strong> será removido.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" data-dismiss="modal">
+                        Cancele por favor
+                    </button>
+                    <button class="btn btn-danger" ng-click="excluir()" data-dismiss="modal">
+                        OK! pode apagar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIM MODAL DELETE ITEM -->
+</section>

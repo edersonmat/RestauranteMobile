@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html ng-app="app-livro">
+<head>
+    <meta charset="utf-8" />
+    <title>Desafio Extreme</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary">
+            <a class="navbar-brand" href="/">
+                Livros Extreme
+            </a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Cadastrar Livros</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Consultar Livros</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="col-md-6 offset-md-3" style="margin-top:100px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="#/cadastro">
+                                <img src="assets/addBook.png" class="img-thumbnail w-100" />
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#/cadastro">
+                                Cadastrar Livros
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="#/consulta">
+                                <img src="assets/viewBook.png" class="img-thumbnail w-100" />
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <a href="#/consulta">
+                                Consultar Livros
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-top:30px">
+        <div class="col-md-12">
+            <div ng-view></div>
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/routes.js"></script>
+
+    <script src="app/controllers/cadastro-controller.js"></script>
+    <script src="app/controllers/consulta-controller.js"></script>
+</body>
+</html>
